@@ -1,0 +1,9 @@
+{% extends 'base.html'%}  {% load staticfiles %} {{form.media}}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> {% block content %} {{ block.super }}
+  
+    <a href="/upload"></a>
+       {% for image in image %}
+       {{image.name}}
+       <img height="200px" width="200px" src="{{image.image.url}}">
+       {% endfor %}
+{% endblock %}
