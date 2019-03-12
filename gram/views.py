@@ -63,7 +63,6 @@ def index(request):
 
 
 def upload(request):
-    # upload = Image.objects.all()
     current_user = request.user
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
