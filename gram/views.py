@@ -50,11 +50,13 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        # return redirect('home')
+        # return redirect('index')
         return HttpResponse('Thank you for your email confirmation. Now you can login your account <a href="/accounts/login">here </a>.')
     else:
         return HttpResponse('Activation link is invalid!')
-# @login_required(login_url='/accounts/login')
+
+
+@login_required(login_url='/accounts/login')
 def index(request):
     form = ImageForm()
     image = Image.objects.all()
@@ -70,7 +72,7 @@ def upload(request):
             image = form.save(commit=False)
             image.user = current_user
             image.save()
-        return redirect('/')
+        return redirect('index')
 
     else:
         form = ImageForm()
@@ -95,7 +97,7 @@ def profile(request):
 def update_profile(request):
     current_user = request.user
     if request.method == 'POST':
-        image_form=ProfileForm(request.POST,request.FILES)
+        image_form=ProfileForm(request.POST,  request.FILES)
         if image_form.is_valid():
             image_form.save()
         else:
