@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
-from .forms import ImageForm,ProfileForm
-from .models import Image,Profile
+from django.shortcuts import render, redirect
+from .forms import ImageForm, ProfileForm
+from .models import Image, Profile
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
@@ -14,6 +14,7 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -26,12 +27,12 @@ def signup(request):
             message = render_to_string('acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                'token':account_activation_token.make_token(user),
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
-                        mail_subject, message, to=[to_email]
+                mail_subject, message, to=[to_email]
             )
             email.send()
             return HttpResponse('Please confirm your email address to complete the registration')
@@ -61,7 +62,7 @@ def index(request):
     form = ImageForm()
     image = Image.objects.all()
 
-    return render(request, 'index.html',{"image":image})
+    return render(request, 'index.html', {"image": image})
 
 
 def upload(request):
@@ -86,20 +87,25 @@ def profile(request):
     posts = Image.objects.filter(user=current_user)
     image_form = ProfileForm()
     if request.method == 'POST':
-        image_form =ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        image_form = ProfileForm(
+            request.POST, request.FILES, instance=request.user)
         if image_form.is_valid():
             image_form.save()
         else:
             image_form = ProfileForm()
-            return render(request, 'profile.html', {"image_form": image_form,"posts":posts,"profile":profile,"images":images})
-    return render(request, 'profile.html', {"image_form": image_form,"posts":posts,"profile":profile,"images":images})
+
+    return render(request, 'profile.html', {"image_form": image_form, "posts": posts, "profile": profile, "images": images})
+
 
 def update_profile(request):
-    current_user = request.user
+    # current_user = request.user
     if request.method == 'POST':
-        image_form=ProfileForm(request.POST,  request.FILES)
-        if image_form.is_valid():
-            image_form.save()
-        else:
-            image_form = ProfileForm()
-            return render(request, 'update_profile.html', {"image_form": image_form})
+        me = User.objects.get(username=request.user)
+        user = Profile.objects.get(user=request.user)
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfileForm()
+    return render(request, 'update_profile.html', {"form": form})
