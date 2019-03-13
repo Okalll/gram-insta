@@ -1,4 +1,7 @@
 {% load bootstrap3 %}
+{% block styles%}
+<link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
+{% endblock%}
 {% include 'material/includes/material_css.html' %}
 {% include 'material/includes/material_js.html' %}
 {% load material_form %}
@@ -8,7 +11,7 @@
 <div class="row">
 <div class="col-md-4"></div>
 <div class="col-md-4">
-  <h2 class="text-center">Sign up</h2>
+  <h2 class="text-center" style="font-family: 'Oleo Script', cursive;">Instagram</h2>
   <form method="post">
     {% csrf_token %}
       {% for field in form %}
