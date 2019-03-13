@@ -59,7 +59,7 @@ def index(request):
     form = ImageForm()
     image = Image.objects.all()
 
-    return render(request, 'index.html')
+    return render(request, 'index.html',{"image":image})
 
 
 def upload(request):
@@ -85,9 +85,19 @@ def profile(request):
     image_form = ProfileForm()
     if request.method == 'POST':
         image_form =ProfileForm(request.POST,request.FILES,instance=request.user.profile)
-        if image_form.is_valid:
+        if image_form.is_valid():
             image_form.save()
         else:
             image_form = ProfileForm()
             return render(request, 'profile.html', {"image_form": image_form,"posts":posts,"profile":profile,"images":images})
     return render(request, 'profile.html', {"image_form": image_form,"posts":posts,"profile":profile,"images":images})
+
+def update_profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        image_form=ProfileForm(request.POST,request.FILES)
+        if image_form.is_valid():
+            image_form.save()
+        else:
+            image_form = ProfileForm()
+            return render(request, 'update_profile.html', {"image_form": image_form})
