@@ -6,7 +6,7 @@
 This is a simple clone of instagram that works similar to instagram itself.
 
 
-##User Stories
+## User Stories
 Through this application a user is able to:
 
 1. Sign in to the application to start using.
@@ -30,7 +30,7 @@ Through this application a user is able to:
 ## Setup/Installation Requirements
 To start using this project use the following commands:
 
-* `git clone https://github.com/Okalll/Gallery`
+* `git clone https://github.com/Okalll/gram-insta.git`
 * `cd Gallery`
 * `atom .`
 * `code . `(this is if Visual Studio Code is your preferred text editor)
