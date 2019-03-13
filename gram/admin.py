@@ -5,4 +5,3 @@ from .models import Image, Profile
 
 admin.site.register(Profile)
 admin.site.register(Image)
-
