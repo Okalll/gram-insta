@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'instagram',
         'USER': 'moringa',
-    'PASSWORD':'12345',
+        'PASSWORD': '12345',
     }
 }
 
@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+LOGIN_REDIRECT_URL = "/index"
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
