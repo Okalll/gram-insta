@@ -102,9 +102,11 @@ def update_profile(request):
     if request.method == 'POST':
         me = User.objects.get(username=request.user)
         user = Profile.objects.get(user=request.user)
+        print(user)
         form = ProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
+            print(form)
             return redirect('profile')
     else:
         form = ProfileForm()
