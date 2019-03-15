@@ -46,6 +46,8 @@
   .navbar .input-search:focus {
     text-align: left;
   }
-
+.textz{
+  display:absolute
+}
 
 
